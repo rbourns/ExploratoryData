@@ -1,0 +1,27 @@
+> consumption <-read.table("PowerConsumption.txt", header=TRUE, sep=";", na.strings = "?")
+> consumption_data <-rbind(consumption[consumption$Date=="1/2/2007",],consumption[consumption$Date=="2/2/2007",])
+> consumption_data$Date <- as.Date(consumption_data$Date,"%d/%m/%Y")
+> consumption_data<-cbind(consumption_data, "DateTime" = as.POSIXct(paste(consumption_data$Date, consumption_data$Time)))
+> 
+Plot1
+hist(as.numeric(consumption_data$Global_active_power), col="Red", main="Global Active Power", xlab="Global Active power (kilowatts)", ylab="Frequency")
+> 
+
+Plot2
+plot(consumption_data$Global_active_power ~ consumption_data$DateTime, type="l", xlab= "", ylab="Global Active Power (kilowatts)")
+>
+Plot3
+with(consumption_data, {plot(Sub_metering_1 ~ DateTime, type="l", xlab= "", ylab="Energy Sub Metering")})
+> lines(consumption_data$Sub_metering_2 ~ consumption_data$DateTime, col = 'Red')
+> lines(consumption_data$Sub_metering_3 ~ consumption_data$DateTime, col = 'Blue')
+> legend("topright", lty=1, lwd =3, col=c("black","red","blue") ,legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+> 
+Plot4
+par(mfrow=c(2,2))
+> plot(consumption_data$Global_active_power ~ consumption_data$DateTime, type="l")
+> plot(consumption_data$Voltage ~ consumption_data$DateTime, type="l")
+> with(consumption_data, {plot(Sub_metering_1 ~ DateTime, type="l")})
+> lines(consumption_data$Sub_metering_2 ~ consumption_data$DateTime, col = 'Red')
+> lines(consumption_data$Sub_metering_3 ~ consumption_data$DateTime, col = 'Blue')
+> 
+> plot(consumption_data$Global_reactive_power ~ consumption_data$DateTime, type="l")

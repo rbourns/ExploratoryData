@@ -18,10 +18,13 @@ with(consumption_data, {plot(Sub_metering_1 ~ DateTime, type="l", xlab= "", ylab
 > 
 Plot4
 par(mfrow=c(2,2))
-> plot(consumption_data$Global_active_power ~ consumption_data$DateTime, type="l")
-> plot(consumption_data$Voltage ~ consumption_data$DateTime, type="l")
-> with(consumption_data, {plot(Sub_metering_1 ~ DateTime, type="l")})
-> lines(consumption_data$Sub_metering_2 ~ consumption_data$DateTime, col = 'Red')
-> lines(consumption_data$Sub_metering_3 ~ consumption_data$DateTime, col = 'Blue')
-> 
-> plot(consumption_data$Global_reactive_power ~ consumption_data$DateTime, type="l")
+plot(consumption_data$Global_active_power ~ consumption_data$DateTime, type="l", xlab="", ylab="Global Active Power")
+plot(consumption_data$Voltage ~ consumption_data$DateTime, type="l", xlab="datetime", ylab = "Voltage")
+ 
+with(consumption_data, {plot(Sub_metering_1 ~ DateTime, type="l", xlab="", ylab="Energy sub Metering")})
+lines(consumption_data$Sub_metering_2 ~ consumption_data$DateTime, col = 'Red')
+lines(consumption_data$Sub_metering_3 ~ consumption_data$DateTime, col = 'Blue')
+legend("topright", lty= 1, col = c("Black", "red", "blue"), legend = c( "Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), cex = .5)
+
+ 
+plot(consumption_data$Global_reactive_power ~ consumption_data$DateTime, type="l", xlab="datetime", ylab="Global_Reactive_Power")
